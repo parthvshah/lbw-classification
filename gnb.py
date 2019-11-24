@@ -13,31 +13,12 @@ import numpy as np
 style.use('ggplot')
 import pandas as pd
 
-#lbw1=pd.read_csv('ML.csv') #,encoding = "ISO-8859-1")
-
-#lbw2=pd.read_csv('ML_1.csv')
-
-# lbw1
-
-#lbw2=lbw2.iloc[:, list(range(9))]
-#print(lbw2)
-
-#lbw=lbw1.append(lbw2)
-
 lbw=pd.read_csv('part_1_0.csv')
-
-#lbw
-
-
 
 X = lbw.drop("reslt", axis=1)
 X=X.drop("history",axis=1)
 
 y = lbw["reslt"]
-
-#y
-
-#X
 
 import pandas as pd
 from sklearn import preprocessing
@@ -47,14 +28,8 @@ min_max_scaler = preprocessing.MinMaxScaler()
 x_scaled = min_max_scaler.fit_transform(x)
 X= pd.DataFrame(x_scaled)
 
-X
-
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.15)
-
-X_train
-
-y_train
 
 """Calculated Prior Probabilities for the classes"""
 
@@ -73,19 +48,6 @@ def prior_prob(labels):
     
 priors=prior_prob(y_train)
 print(priors)
-
-# yy=y_train==0
-# yy.iloc[21]
-
-# filtered_training_set=X_train[(y_train==0)]
-# print(filtered_training_set)
-# print(y_train[(y_train== 0)])
-
-
-
-
-
-#y_train
 
 """Calculate Mean and Variance For all Features"""
 
@@ -117,8 +79,6 @@ dictionary=Calculate_Mean_and_Variance(X_train,y_train)
 
 print((dictionary))
 
-
-
 """NOW using PDF Equation  
 Given a feature
 """
@@ -146,12 +106,6 @@ def predict(X_test,mean_variance):
 
 predictions=predict(X_test,dictionary)
 
-#predictions
-
-#X_test
-
-#y_test
-
 def acc(y_test,prediction):
   count=0
   for ind,row in y_test.iteritems():
@@ -161,71 +115,3 @@ def acc(y_test,prediction):
 
 accuracy=acc(y_test,predictions)
 print("accuracy",accuracy)
-
-# def calculate_accuracy(test_set, predictions):
-#     correct = 0
-#     for _, t in test_set.iterrows():
-#         if t["reslt"] == predictions[_]:
-#             correct += 1
-#     return (correct / len(test_set)) * 100.0
-
-#done
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from sklearn.svm import SVC
-# svclassifier = SVC(kernel='poly')
-# svclassifier.fit(X_train, y_train)
-
-# y_pred = svclassifier.predict(X_test)
-
-# from sklearn.metrics import classification_report, confusion_matrix
-# print(confusion_matrix(y_test,y_pred))
-# print(classification_report(y_test,y_pred))
-
-# X_train
-
-"""LETS Normalize"""
-
-# import pandas as pd
-# from sklearn import preprocessing
-
-# x =X_train.values #returns a numpy array
-
-# min_max_scaler = preprocessing.MinMaxScaler()
-# x_scaled = min_max_scaler.fit_transform(x)
-# X_train= pd.DataFrame(x_scaled)
-
-
-
-y_train
-
-# from sklearn.svm import SVC
-# svclassifier = SVC(kernel='rbf',degree=8,tol=1e-7,verbose=True,gamma='scale',shrinking=True)
-# svclassifier.fit(X_train, y_train)
-# y_pred = svclassifier.predict(X_test)
-
-"""On Train"""
-
-# y_pred_on_train=svclassifier.predict(X_train)
-
-# from sklearn.metrics import classification_report, confusion_matrix
-# print(confusion_matrix(y_test,y_pred))
-# print(classification_report(y_train,y_pred_on_train))
-
-"""ON Test Set"""
-
-# from sklearn.metrics import classification_report, confusion_matrix
-# print(confusion_matrix(y_test,y_pred))
-# print(classification_report(y_test,y_pred))
-

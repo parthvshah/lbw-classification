@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-url0 = 'data/lbw0.csv'
-url1 = 'data/lbw1.csv'
+url0 = '../data/lbw0.csv'
+url1 = '../data/lbw1.csv'
 
 def read_data(class1, class2):
     data_class1 = pd.read_csv(class1)
@@ -45,7 +45,7 @@ def print_test_split(data):
       count0 += 1
     if(row[-1]==1):
       count1 += 1
-  print("In test, class 0:", count0, "class 1:", count1)
+  print("In test, class0:", count0, "class1:", count1)
 
 def get_neighbors(train, test_row, num_neighbors):
 	distances = list()
