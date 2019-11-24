@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-url0 = 'https://raw.githubusercontent.com/parthvshah/lbw-classification/master/data/lbw0.csv'
-url1 = 'https://raw.githubusercontent.com/parthvshah/lbw-classification/master/data/lbw1.csv'
+url0 = 'data/part_0.csv'
+url1 = 'data/part_1.csv'
 
 def read_data(class1, class2):
     data_class1 = pd.read_csv(class1)
@@ -45,7 +45,7 @@ def print_test_split(data):
       count0 += 1
     if(row[-1]==1):
       count1 += 1
-  print("In test, class 0:", count0, "class 1:", count1)
+  # print("In test, class 0:", count0, "class 1:", count1)
 
 def get_neighbors(train, test_row, num_neighbors):
 	distances = list()
@@ -64,25 +64,26 @@ def predict_classification(train, test_row, num_neighbors):
 	prediction = max(set(output_values), key=output_values.count)
 	return prediction
 
-data = read_data(url0, url1)
-data = normalize(data)
-data = data.to_numpy()
+def main(seed_val):
+  data = read_data(url0, url1)
+  data = normalize(data)
+  data = data.to_numpy()
 
-# List of good seed values: 2, 4, 11, 12
-np.random.seed(16)
-np.random.shuffle(data)
+  # List of good seed values: 2, 4, 11, 12
+  np.random.seed(seed_val)
+  np.random.shuffle(data)
 
-train, test = split_data(data, 0.10)
+  train, test = split_data(data, 0.10)
 
-print_test_split(test)
+  print_test_split(test)
 
-neighbors = 10
+  neighbors = 10
 
-while neighbors!=1:
-  count = 0
-  for row in test:
-    label = predict_classification(train, row, neighbors)
-    if(label == row[-1]):
-      count += 1
-  neighbors -= 1
-  print("Neighbors:", neighbors, "Accuracy:", count/len(test)*100)
+  while neighbors!=1:
+    count = 0
+    for row in test:
+      label = predict_classification(train, row, neighbors)
+      if(label == row[-1]):
+        count += 1
+    neighbors -= 1
+    print(seed_val, neighbors, count/len(test))
