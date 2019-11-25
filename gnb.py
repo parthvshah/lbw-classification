@@ -17,7 +17,7 @@ import pandas as pd
 
 """Take input from the dataset"""
 
-lbw=pd.read_csv('./data/Final.csv')
+lbw=pd.read_csv('./data/part_1_0.csv')
 
 print(lbw)
 
@@ -57,7 +57,7 @@ def get_count_unique_vals(labels):
 def prior_prob(labels):
     counts=get_count_unique_vals(labels)
     number_of_instances=labels.count()
-    print(counts.items())
+    #print(counts.items())
     priors={(key,value/number_of_instances) for key, value in counts.items()}
     return priors
     
@@ -132,7 +132,23 @@ def acc(y_test,prediction):
   return count/len(y_test)*100.0
 
 accuracy=acc(y_test,predictions)
-print("accuracy :",accuracy)
+print("accuracy (with a particular seed value) :",accuracy)
+
+def count_for_thousand(X,y):
+  accuracy=0
+  count=0
+  for i in range(1000):
+    try:
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.15)
+      priors=prior_prob(y_train)
+      dictionary=Calculate_Mean_and_Variance(X_train,y_train)
+      predictions=predict(X_test,dictionary)
+      accuracy+=acc(y_test,predictions)
+      count+=1
+    except ZeroDivisionError:
+      pass
+  return accuracy/count
+
+print("avg accuracy for thousand train test shuffles:",count_for_thousand(X,y))
 
 #done
-

@@ -1,12 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[2]:
-
-
-#Import Statements
-
-
 # In[3]:
 
 
@@ -15,13 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
-
-
-# In[4]:
-
-
-#display matplotlib graphs in the notebook
-
 
 # In[5]:
 
@@ -33,8 +19,8 @@ from pprint import pprint
 # In[6]:
 
 
-#Load and prepare data
-#The code doesn't take in 0.1 to represent the 10% of the data, it takes in numbers
+# Load and prepare data
+# The code doesn't take in 0.1 to represent the 10% of the data, it takes in numbers
 
 
 # In[7]:
@@ -43,13 +29,6 @@ from pprint import pprint
 df=pd.read_csv("Final.csv")
 df= df.rename(columns={"reslt":"label"})
 df
-
-
-# In[ ]:
-
-
-
-
 
 # In[8]:
 
@@ -60,7 +39,7 @@ df.info()
 # In[9]:
 
 
-#Train-Test-Split to split data into test and train data
+# Train-Test-Split to split data into test and train data
 
 
 # In[10]:
@@ -124,12 +103,6 @@ len(train_df.values)
 train_df.values[:,-1]
 
 
-# In[19]:
-
-
-### Data Pure -check
-
-
 # In[20]:
 
 
@@ -138,20 +111,12 @@ def check_data_purity(data):
         return False
     else:
         return True    
-    
-
 
 # In[21]:
 
 
 data=train_df.values
 check_data_purity(data)
-
-
-# In[22]:
-
-
-###Classify
 
 
 # In[23]:
@@ -168,7 +133,7 @@ def classify_data(data):
 # In[24]:
 
 
-### Potential Splits
+# Potential Splits
 
 
 # In[25]:
@@ -195,7 +160,7 @@ def getting_potential_splits(data):
 # In[68]:
 
 
-#data=train_df.values
+# data=train_df.values
 potential_splits=getting_potential_splits(train_df.values)
 
 
@@ -203,16 +168,16 @@ potential_splits=getting_potential_splits(train_df.values)
 
 
 sns.lmplot(data=train_df,x="age",y="res",hue="label", fit_reg=False, height=6, aspect=1.5)
-#plt.vlines(x=potential_splits[1], ymin=30, ymax=65)
-#plt.hlines(y=potential_splits[7], xmin=17, xmax=38)
-plt.hlines(y=potential_splits[7], xmin=17, xmax=38)#draw lines between data points
+# plt.vlines(x=potential_splits[1], ymin=30, ymax=65)
+# plt.hlines(y=potential_splits[7], xmin=17, xmax=38)
+plt.hlines(y=potential_splits[7], xmin=17, xmax=38) # draw lines between data points
 plt.vlines(x=potential_splits[1], ymin=1, ymax=2)
 
 
 # In[28]:
 
 
-### Split Data
+# Split Data
 
 
 # In[29]:
@@ -250,8 +215,6 @@ split_value=37.5
 data_below, data_above=split_data(data, split_column, split_value)
 
 
-# 
-
 # In[67]:
 
 
@@ -263,7 +226,7 @@ plt.hlines(y=split_value, xmin=1, xmax=3)
 # In[35]:
 
 
-### Highest Information Gain
+# Highest Information Gain
 
 
 # In[36]:
@@ -277,24 +240,10 @@ def calculate_entropy(data):
     entropy=sum(probabilities*(-np.log2(probabilities)))# H =sum(pilogpi)
     return entropy
 
-
-# In[ ]:
-
-
-
-
-
 # In[37]:
 
 
 calculate_entropy(data)
-
-
-# In[ ]:
-
-
-
-
 
 # In[38]:
 
@@ -331,9 +280,6 @@ def get_best_split(data, potential_splits):
                 best_split_value=value #which value you should split at for that column
     return best_split_column, best_split_value
 
-
-# 
-
 # In[41]:
 
 
@@ -346,19 +292,17 @@ potential_splits=getting_potential_splits(data)
 data=train_df.values
 get_best_split(data, potential_splits)
 
-            
-
-
+        
 # In[43]:
 
 
-### Decision Tree Algorithm
+# Decision Tree Algorithm
 
 
 # In[44]:
 
 
-#sub_tree={question:[yes_answer,no_answer]}
+# sub_tree={question:[yes_answer,no_answer]}
 
 
 # In[45]:
@@ -370,7 +314,7 @@ get_best_split(data, potential_splits)
 # In[46]:
 
 
-### Algorithm
+# Algorithm
 
 
 # In[47]:
@@ -435,7 +379,7 @@ df.columns
 # In[50]:
 
 
-### Classification
+# Classification
 
 
 # In[51]:
@@ -483,7 +427,7 @@ example["weight"]<=37.5
 # In[55]:
 
 
-### Accuracy
+# Accuracy
 
 
 # In[56]:
@@ -495,13 +439,6 @@ def calculate_accuracy(df, tree):
     
     accuracy=df.classification_correct.mean()*100 #accuracy percentage 
     return accuracy
-
-
-# In[ ]:
-
-
-
-
 
 # In[57]:
 
@@ -517,7 +454,6 @@ calculate_accuracy(test_df, tree)
 
 # In[59]:
 
-
 random.seed(2)
 train_df, test_df =train_test_data_split(df, test_size=24)
 tree=decision_tree_algorithm(train_df,max_depth=3)
@@ -526,19 +462,9 @@ accuracy=calculate_accuracy(test_df,tree)
 pprint(tree)
 print(accuracy)
 
-
-# In[60]:
-
-
-#df
-#random.seed(0)
-
-
 # In[61]:
 
-
 test_df
-
 
 # In[62]:
 
@@ -698,46 +624,3 @@ s_time
 
 
 total
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
