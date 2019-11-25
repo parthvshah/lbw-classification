@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-url0 = '../data/lbw0.csv'
-url1 = '../data/lbw1.csv'
+url0 = '../data/part_0.csv'
+url1 = '../data/part_1.csv'
 
 def read_data(class1, class2):
     data_class1 = pd.read_csv(class1)
@@ -47,7 +47,7 @@ def print_test_split(data):
       count1 += 1
   print("In test, class0:", count0, "class1:", count1)
 
-def get_neighbors(train, test_row, num_neighbors):
+def get_neigh(train, test_row, num_neighbors):
 	distances = list()
 	for train_row in train:
 		dist = euclidean_distance(test_row, train_row)
@@ -58,8 +58,8 @@ def get_neighbors(train, test_row, num_neighbors):
 		neighbors.append(distances[i][0])
 	return neighbors
  
-def predict_classification(train, test_row, num_neighbors):
-	neighbors = get_neighbors(train, test_row, num_neighbors)
+def predict(train, test_row, num_neighbors):
+	neighbors = get_neigh(train, test_row, num_neighbors)
 	output_values = [row[-1] for row in neighbors]
 	prediction = max(set(output_values), key=output_values.count)
 	return prediction
@@ -81,7 +81,7 @@ neighbors = 10
 while neighbors!=1:
   count = 0
   for row in test:
-    label = predict_classification(train, row, neighbors)
+    label = predict(train, row, neighbors)
     if(label == row[-1]):
       count += 1
   neighbors -= 1

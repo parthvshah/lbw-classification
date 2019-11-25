@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-url0 = 'data/part_0.csv'
-url1 = 'data/part_1.csv'
+url0 = '../data/part_0.csv'
+url1 = '../data/part_1.csv'
 
 def read_data(class1, class2):
     data_class1 = pd.read_csv(class1)
@@ -50,7 +50,7 @@ def print_test_split(data):
 def get_neighbors(train, test_row, num_neighbors):
 	distances = list()
 	for train_row in train:
-		dist = euclidean_distance(test_row, train_row)
+		dist = manhattan_distance(test_row, train_row)
 		distances.append((train_row, dist))
 	distances.sort(key=lambda tup:tup[1])
 	neighbors = list()
