@@ -320,7 +320,7 @@ get_best_split(data, potential_splits)
 # In[47]:
 
 
-def decision_tree_algorithm(df, counter=0, min_samples=2, max_depth=5):
+def decision_tree_algorithm(df, counter=0, min_samples=1, max_depth=7):
     
     #data preparations
     if counter==0:
