@@ -17,7 +17,7 @@ import pandas as pd
 
 """Take input from the dataset"""
 
-lbw=pd.read_csv('./data/part_1_0.csv')
+lbw=pd.read_csv('./data/Final.csv')
 
 print(lbw)
 
